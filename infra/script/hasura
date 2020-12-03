@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euo pipefail
+
+export PULUMI_SKIP_UPDATE_CHECK=1
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+ROOT="$DIR/.."
+
+eval `$ROOT/script/env.sh`
+
+echo "endpoint: $HASURA_URL" > db/config.yaml
+pushd $ROOT/db
+HASURA_GRAPHQL_ADMIN_SECRET="$PGSQL_PASS" $ROOT/vendor/hasura $@
+popd

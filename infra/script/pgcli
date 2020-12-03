@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [ -f /etc/wsl.conf ]; then
+  echo "pipenv is broken on WSL, sorry!"
+  exit 1
+fi
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+ROOT="$DIR/.."
+
+. $ROOT/script/lib/parse-opts.sh
+
+$ROOT/script/lib/start-db-tunnel
+sleep 2
+
+if [[ -z $HASURA_PRODUCTION ]]; then
+  PGPASSWORD="$PGSQL_PASS" pipenv run pgcli -u "$PGSQL_USER" -h localhost -w $PGSQL_DATABASE $@
+else
+  PGPASSWORD="$PGSQL_PASS" pipenv run pgcli -u "$PGSQL_USER@$PGSQL_USER_HN" -h localhost -w $PGSQL_DATABASE $@ 
+fi
+
+$ROOT/script/lib/stop-db-tunnel
