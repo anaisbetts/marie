@@ -36,7 +36,7 @@ const pgProvider = new pg.Provider('pg', {
 export const db = new pg.Database('marie', {}, { provider: pgProvider });
 
 const hasuraImage = new docker.RemoteImage('hasura-image', {
-  name: 'hasura/graphql-engine:v1.3.2',
+  name: 'hasura/graphql-engine:v1.3.3',
   keepLocally: true,
 });
 
