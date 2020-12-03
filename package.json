@@ -8,9 +8,12 @@
     "start": "next start"
   },
   "dependencies": {
+    "@types/styled-jsx": "^2.2.8",
+    "firebase": "^8.1.1",
     "next": "10.0.3",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "rxjs": "^6.6.3"
   },
   "devDependencies": {
     "@types/node": "^14.14.10",
