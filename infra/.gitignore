@@ -3,3 +3,4 @@ node_modules
 Pulumi.*.yaml
 config/keys
 db/config.yaml
+.firebaserc
