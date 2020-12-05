@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React, { useRef } from 'react';
 import firebase from 'firebase/app';
-import { useAuth, useToken } from '../components/use-firebase';
 import gql from 'graphql-tag';
 import { Draqula, DraqulaProvider, useMutation } from 'draqula';
-import { useRef } from 'react';
+
+import { useAuth, useToken } from '../components/use-firebase';
 
 const ADD_USER = gql`
   mutation upsertUser($email: String!) {

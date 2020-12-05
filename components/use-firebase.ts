@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Observable, Observer, of, concat } from 'rxjs';
+import { Observable, Observer, of, from } from 'rxjs';
 import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
 
 import firebase from 'firebase/app';
-import './firebase';
+import './setup-firebase';
+
 import { isServer } from './util';
 
 export function useObservable<T>(
@@ -28,19 +29,17 @@ export function listenAuth() {
         firebase.auth().onAuthStateChanged(subj)
       );
 
-  return concat(of(firebase.auth().currentUser), auth).pipe(
-    distinctUntilChanged((x, y) => x?.email === y?.email)
-  );
+  return auth.pipe(distinctUntilChanged((x, y) => x?.email === y?.email));
 }
 
 export function useAuth() {
   const listen = listenAuth();
-  return useObservable(() => listen);
+  return useObservable(() => listen, firebase.auth().currentUser);
 }
 
 export function useToken() {
   const listen = listenAuth();
   return useObservable(() =>
-    listen.pipe(mergeMap((u) => (u ? of(u.getIdToken()) : of(''))))
+    listen.pipe(mergeMap((u) => (u ? from(u.getIdToken()) : of(''))))
   );
 }
