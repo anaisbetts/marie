@@ -3,8 +3,10 @@ import Uploady, { useRequestPreSend } from '@rpldy/uploady';
 import UploadButton, { UploadButtonProps } from '@rpldy/upload-button';
 import axios from 'axios';
 
+const urps: any = useRequestPreSend;
+
 export const SignedUploadButton: React.FC<UploadButtonProps> = (props) => {
-  useRequestPreSend(async ({ options }) => {
+  urps(async ({ options }) => {
     const timestamp = Date.now();
 
     const response = await axios.post('/api/image-sign', {
