@@ -1,28 +1,73 @@
 import * as React from 'react';
 import firebase from 'firebase/app';
-import { useAuth } from '../components/use-firebase';
+import { useAuth, useToken } from '../components/use-firebase';
+import gql from 'graphql-tag';
+import { Draqula, DraqulaProvider, useMutation } from 'draqula';
+import { useRef } from 'react';
+
+const ADD_USER = gql`
+  mutation upsertUser($email: String!) {
+    insert_users(
+      objects: { email: $email }
+      on_conflict: { update_columns: email, constraint: users_email_key }
+    ) {
+      returning {
+        email
+      }
+    }
+  }
+`;
+
+let tempToken;
 
 const SigninTestPage: React.FC = (_props) => {
   const auth = useAuth();
+  const hasUpdated = useRef(false);
+  const { mutate } = useMutation<{ email: string }>(ADD_USER);
 
   const signedIn = auth ? <h2>{'Hi ' + auth.displayName}</h2> : <p>no.</p>;
 
   return (
     <>
       <button
-        onClick={() => {
+        disabled={!!auth}
+        onClick={async () => {
           const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-          firebase.auth().signInWithPopup(googleAuthProvider);
+          await firebase.auth().signInWithPopup(googleAuthProvider);
+          hasUpdated.current = false;
+
+          tempToken = await firebase.auth().currentUser.getIdToken();
+          mutate({ email: firebase.auth().currentUser.email }); //.then(() => (hasUpdated.current = true));
         }}
       >
         Sign In with Google
       </button>
 
-      <button onClick={() => firebase.auth().signOut()}>Goodbye</button>
+      <button disabled={!auth} onClick={() => firebase.auth().signOut()}>
+        Goodbye
+      </button>
 
       {signedIn}
     </>
   );
 };
 
-export default SigninTestPage;
+const SigninTestHost: React.FC = () => {
+  const token = useToken();
+
+  const client = new Draqula(process.env.NEXT_PUBLIC_DB_URL, {
+    hooks: {
+      beforeRequest: [
+        (rq) => rq.headers.set('Authorization', `Bearer ${tempToken ?? token}`),
+      ],
+    },
+  });
+
+  return (
+    <DraqulaProvider client={client}>
+      <SigninTestPage />
+    </DraqulaProvider>
+  );
+};
+
+export default SigninTestHost;
