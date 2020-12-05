@@ -1,0 +1,18 @@
+- args:
+    permission:
+      allow_aggregations: false
+      backend_only: false
+      columns:
+      - asset_id
+      - id
+      - image_url
+      computed_fields: []
+      filter:
+        user_uid:
+          _eq: X-Hasura-User-Id
+      limit: null
+    role: user
+    table:
+      name: image_uploads
+      schema: public
+  type: create_select_permission

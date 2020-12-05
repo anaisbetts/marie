@@ -1,0 +1,18 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE EXTENSION IF NOT EXISTS pgcrypto;
+  type: run_sql
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE TABLE "public"."image_uploads"("id" uuid NOT NULL DEFAULT gen_random_uuid(),
+      "user_uid" text NOT NULL, "asset_id" text NOT NULL, "image_url" text NOT NULL,
+      PRIMARY KEY ("id") , FOREIGN KEY ("user_uid") REFERENCES "public"."users"("uid")
+      ON UPDATE restrict ON DELETE restrict, UNIQUE ("id"), UNIQUE ("user_uid"), UNIQUE
+      ("asset_id"));
+  type: run_sql
+- args:
+    name: image_uploads
+    schema: public
+  type: add_existing_table_or_view

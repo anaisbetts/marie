@@ -1,0 +1,22 @@
+- args:
+    permission:
+      allow_upsert: true
+      backend_only: false
+      check:
+        _exists:
+          _table:
+            name: users
+            schema: public
+          _where:
+            uid:
+              _eq: X-Hasura-User-Id
+      columns:
+      - asset_id
+      - image_url
+      set:
+        user_uid: x-hasura-User-Id
+    role: user
+    table:
+      name: image_uploads
+      schema: public
+  type: create_insert_permission
