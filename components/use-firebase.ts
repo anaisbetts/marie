@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Observable, Observer, of, concat, merge } from 'rxjs';
 import { mergeAll } from 'rxjs/operators';
 
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import './firebase';
 
 export function useObservable<T>(
