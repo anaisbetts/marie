@@ -33,7 +33,7 @@ export const db = new azure.postgresql.Database('pg-db', {
   name: cfg.get('dbname') || 'marie',
 });
 
-const fw = new azure.postgresql.FirewallRule('pg-fw', {
+export const fw = new azure.postgresql.FirewallRule('pg-fw', {
   serverName: dbServer.name,
   name: 'allow-azure-internal',
   startIpAddress: '0.0.0.0',
@@ -142,23 +142,3 @@ export const jumpbox = new azure.compute.VirtualMachine('jumpbox', {
     version: 'latest',
   },
 });
-
-/*
-export const helloWorld = new azure.appservice.HttpEventSubscription("helloWorld", {
-  resourceGroup: new azure.core.ResourceGroup("ruhe-fn", { name: cfg.require("resourceGroup") + "-fn", location }),
-  callback: async (_context, req) => {
-    console.log("WE HAVE STARTED");
-    const theUri = `https://${appService.defaultSiteHostname.get()}`;
-
-    const ret = {
-      status: 200,
-      headers: { "content-type": "text/plain" },
-      body: `Hasura is ${theUri} and the request body is\n${req.body}`,
-    };
-
-    console.log(`ABOUT TO RETURN - THE URI IS ${theUri}`);
-    return ret;
-  },
-  hostSettings: { }
-});
-*/

@@ -6,7 +6,7 @@ PARAMS=""
 
 ## NB: Even if people forget --prod, if we've got a resource group we definitely 
 ## are prod
-resourceGroup=$(pulumi config get hasura-infra:resourceGroup 2>/dev/null || true)
+resourceGroup=$(pulumi config get resourceGroup 2>/dev/null || true)
 
 if [[ -n $resourceGroup ]]; then
   export HASURA_PRODUCTION='true'
