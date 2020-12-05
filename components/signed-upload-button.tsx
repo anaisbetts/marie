@@ -42,10 +42,10 @@ export const AuthedUploadButton: React.FC<AuthedUploadButtonProps> = ({
   const { mutate } = useMutation<{ image_url: string; asset_id: string }>(
     UPLOAD_IMAGE
   );
-  if (!auth) return null;
+  if (!auth) return <h2>NOT A BUTTON</h2>;
 
   const submit = async (x: SignedUploadedImage) => {
-    const result = await mutate({
+    await mutate({
       image_url: x.url,
       asset_id: x.asset_id,
     });

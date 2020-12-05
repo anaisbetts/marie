@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Observable, Observer, of, from } from 'rxjs';
-import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  mergeMap,
+  publish,
+  publishBehavior,
+  refCount,
+} from 'rxjs/operators';
 
 import firebase from 'firebase/app';
 import './setup-firebase';
@@ -32,14 +38,14 @@ export function listenAuth() {
   return auth.pipe(distinctUntilChanged((x, y) => x?.email === y?.email));
 }
 
+const authObs = listenAuth().pipe(publishBehavior(null), refCount());
+
 export function useAuth() {
-  const listen = listenAuth();
-  return useObservable(() => listen, firebase.auth().currentUser);
+  return useObservable(() => authObs, firebase.auth().currentUser);
 }
 
 export function useToken() {
-  const listen = listenAuth();
   return useObservable(() =>
-    listen.pipe(mergeMap((u) => (u ? from(u.getIdToken()) : of(''))))
+    authObs.pipe(mergeMap((u) => (u ? from(u.getIdToken()) : of(''))))
   );
 }

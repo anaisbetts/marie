@@ -14,9 +14,6 @@ const UploadImage: React.FC = () => {
   const router = useRouter();
   const [img, setImg] = useState<string>(null);
 
-  console.log('Render!');
-  console.log(auth);
-
   useEffect(() => {
     if (isServer) return;
 
