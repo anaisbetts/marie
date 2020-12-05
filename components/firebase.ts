@@ -4,6 +4,10 @@ import 'firebase/auth';
 import { firebaseConfig } from './firebase-config';
 export { firebaseConfig as config } from './firebase-config';
 
-firebase.initializeApp(firebaseConfig);
+const wnd = global as any;
+if (!wnd.hasFirebased) {
+  firebase.initializeApp(firebaseConfig);
+  wnd.hasFirebased = true;
+}
 
 export const firebaseApp = firebase;

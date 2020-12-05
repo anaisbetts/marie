@@ -1,7 +1,6 @@
 import * as React from 'react';
 import firebase from 'firebase/app';
-import { config } from '../firebase';
-import { useAuth } from '../use-firebase';
+import { useAuth } from '../components/use-firebase';
 
 const SigninTestPage: React.FC = (_props) => {
   const auth = useAuth();
