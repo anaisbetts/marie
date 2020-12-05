@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Observable, Observer, of, concat, merge } from 'rxjs';
-import { mergeAll } from 'rxjs/operators';
+import { Observable, Observer, of, concat } from 'rxjs';
+import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
 
 import firebase from 'firebase/app';
 import './firebase';
+import { isServer } from './util';
 
 export function useObservable<T>(
   target: () => Observable<T>,
@@ -20,25 +21,26 @@ export function useObservable<T>(
   return ret;
 }
 
+export function listenAuth() {
+  const auth = isServer
+    ? of<firebase.User>(null)
+    : new Observable((subj: Observer<firebase.User>) =>
+        firebase.auth().onAuthStateChanged(subj)
+      );
+
+  return concat(of(firebase.auth().currentUser), auth).pipe(
+    distinctUntilChanged((x, y) => x?.email === y?.email)
+  );
+}
+
 export function useAuth() {
-  return useObservable(() => {
-    const auth = new Observable((subj: Observer<firebase.User>) =>
-      firebase.auth().onAuthStateChanged(subj)
-    );
-    const tok = new Observable((subj: Observer<firebase.User>) =>
-      firebase.auth().onIdTokenChanged(subj)
-    );
-
-    return concat(of(firebase.auth().currentUser), merge(auth, tok));
-  });
+  const listen = listenAuth();
+  return useObservable(() => listen);
 }
 
-/*
-export function useDocument(doc: () => DocumentReference) {
-  return useObservable(() => {
-    return new Observable((subj: Observer<DocumentSnapshot>) =>
-      doc().onSnapshot(subj)
-    );
-  });
+export function useToken() {
+  const listen = listenAuth();
+  return useObservable(() =>
+    listen.pipe(mergeMap((u) => (u ? of(u.getIdToken()) : of(''))))
+  );
 }
-*/
