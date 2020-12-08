@@ -21,8 +21,8 @@ const ADD_USER = gql`
 const ADD_PUSH_TOKEN = gql`
   mutation insertPushToken($token: String!) {
     insert_push_tokens_one(object: { token: $token }) {
-      created_at
       token
+      created_at
     }
   }
 `;

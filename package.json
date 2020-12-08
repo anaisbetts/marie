@@ -14,7 +14,7 @@
     "axios": "^0.21.0",
     "cloudinary": "^1.23.0",
     "draqula": "^0.5.4",
-    "firebase": "^8.1.1",
+    "firebase": "^8.1.2",
     "graphql": "^15.4.0",
     "graphql-tag": "^2.11.0",
     "next": "10.0.3",
