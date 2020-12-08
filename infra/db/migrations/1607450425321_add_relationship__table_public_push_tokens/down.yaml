@@ -1,0 +1,6 @@
+- args:
+    relationship: user
+    table:
+      name: push_tokens
+      schema: public
+  type: drop_relationship

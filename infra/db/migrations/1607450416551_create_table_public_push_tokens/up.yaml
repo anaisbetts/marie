@@ -1,0 +1,12 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE TABLE "public"."push_tokens"("user_uid" text NOT NULL, "token" text
+      NOT NULL, "created_at" date NOT NULL DEFAULT now(), PRIMARY KEY ("token") ,
+      FOREIGN KEY ("user_uid") REFERENCES "public"."users"("uid") ON UPDATE restrict
+      ON DELETE restrict, UNIQUE ("token"));
+  type: run_sql
+- args:
+    name: push_tokens
+    schema: public
+  type: add_existing_table_or_view

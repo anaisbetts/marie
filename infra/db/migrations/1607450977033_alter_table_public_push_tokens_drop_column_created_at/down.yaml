@@ -1,0 +1,16 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."push_tokens" ADD COLUMN "created_at" date;
+  type: run_sql
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."push_tokens" ALTER COLUMN "created_at" DROP NOT NULL;
+  type: run_sql
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."push_tokens" ALTER COLUMN "created_at" SET DEFAULT
+      now();
+  type: run_sql

@@ -1,0 +1,12 @@
+- args:
+    name: image_uploads
+    table:
+      name: users
+      schema: public
+    using:
+      foreign_key_constraint_on:
+        column: user_uid
+        table:
+          name: image_uploads
+          schema: public
+  type: create_array_relationship
