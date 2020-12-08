@@ -1,0 +1,22 @@
+- args:
+    permission:
+      allow_aggregations: false
+      backend_only: false
+      columns:
+      - created_at
+      - token
+      computed_fields: []
+      filter:
+        _exists:
+          _table:
+            name: users
+            schema: public
+          _where:
+            uid:
+              _eq: X-Hasura-User-Id
+      limit: null
+    role: user
+    table:
+      name: push_tokens
+      schema: public
+  type: create_select_permission

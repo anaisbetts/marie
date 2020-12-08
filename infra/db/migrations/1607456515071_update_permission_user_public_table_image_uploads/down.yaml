@@ -1,0 +1,22 @@
+- args:
+    role: user
+    table:
+      name: image_uploads
+      schema: public
+  type: drop_select_permission
+- args:
+    permission:
+      allow_aggregations: false
+      columns:
+      - asset_id
+      - id
+      - image_url
+      computed_fields: []
+      filter:
+        user_uid:
+          _eq: X-Hasura-User-Id
+    role: user
+    table:
+      name: image_uploads
+      schema: public
+  type: create_select_permission

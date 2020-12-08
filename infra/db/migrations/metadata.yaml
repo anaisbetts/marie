@@ -29,6 +29,7 @@ tables:
     permission:
       columns:
       - asset_id
+      - created_at
       - id
       - image_url
       filter:
@@ -57,6 +58,20 @@ tables:
       columns:
       - token
       backend_only: false
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - created_at
+      - token
+      filter:
+        _exists:
+          _where:
+            uid:
+              _eq: X-Hasura-User-Id
+          _table:
+            schema: public
+            name: users
   delete_permissions:
   - role: user
     permission:
@@ -92,7 +107,9 @@ tables:
   - role: user
     permission:
       columns:
+      - created_at
       - email
+      - updated_at
       filter:
         uid:
           _eq: X-Hasura-User-Id
