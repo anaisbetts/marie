@@ -1,0 +1,6 @@
+- args:
+    relationship: image_uploads
+    table:
+      name: users
+      schema: public
+  type: drop_relationship

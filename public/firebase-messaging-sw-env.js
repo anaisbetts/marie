@@ -1,6 +1,5 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/messaging';
+importScripts('https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/8.1.2/firebase-messaging.js');
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,8 +12,13 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID,
 };
 
-const wnd = global as any;
-if (!wnd.hasFirebased) {
-  firebase.initializeApp(firebaseConfig);
-  wnd.hasFirebased = true;
-}
+firebase.initializeApp(firebaseConfig);
+
+const messaging = firebase.messaging();
+
+messaging.onBackgroundMessage(function (payload) {
+  console.log(
+    '[firebase-messaging-sw.js] Received background message ',
+    payload
+  );
+});

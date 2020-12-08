@@ -1,0 +1,19 @@
+- args:
+    role: user
+    table:
+      name: push_tokens
+      schema: public
+  type: drop_insert_permission
+- args:
+    permission:
+      backend_only: false
+      check: {}
+      columns:
+      - token
+      set:
+        user_uid: x-hasura-User-Id
+    role: user
+    table:
+      name: push_tokens
+      schema: public
+  type: create_insert_permission
