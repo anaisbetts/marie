@@ -19,7 +19,14 @@ const client = new Draqula(process.env.NEXT_PUBLIC_DB_URL, {
 });
 
 // NB: This uses the FIREBASE_CONFIG env var
-firebase.initializeApp();
+const firebaseConfig = {
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  credential: firebase.credential.cert(JSON.parse(process.env.FIREBASE_CONFIG)),
+};
+
+firebase.initializeApp(firebaseConfig);
 
 interface PushRow {
   created_at: Date;
