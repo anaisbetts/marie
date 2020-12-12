@@ -88,7 +88,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.error(`Failed to fetch tokens for user ${uid}: ${e.message}`);
 
     res.statusCode = 500;
-    res.send({});
+    res.send({ error: e.message });
     return;
   }
 
@@ -106,21 +106,21 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(`Failed to send push! ${error}`);
   }
 
+  let toSend = {
+    id: row.event.data.new.id,
+    delivered_at: new Date(),
+    delivery_result: JSON.stringify(result),
+    error: error,
+  };
+
   try {
-    await client.mutate(
-      UPDATE_PUSH,
-      {
-        id: row.event.data.new.id,
-        delivered_at: new Date(),
-        delivery_result: JSON.stringify(result),
-        error: error,
-      },
-      {}
-    );
+    await client.mutate(UPDATE_PUSH, toSend, {});
   } catch (e) {
     console.error(`Failed to update push record! ${e.message}`);
   }
 
+  // NB: We include the update in our response because then it's easier
+  // to view in the Hasura logs
   res.statusCode = 200;
-  res.send({});
+  res.send(toSend);
 };
