@@ -1,0 +1,18 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE EXTENSION IF NOT EXISTS pgcrypto;
+  type: run_sql
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE TABLE "public"."pushes"("created_at" timestamptz NOT NULL DEFAULT
+      now(), "id" uuid NOT NULL DEFAULT gen_random_uuid(), "token" text NOT NULL,
+      "delivery_result" text, "delivered_at" timestamptz, "payload" text NOT NULL,
+      PRIMARY KEY ("id") , FOREIGN KEY ("token") REFERENCES "public"."push_tokens"("token")
+      ON UPDATE restrict ON DELETE restrict, UNIQUE ("id"));
+  type: run_sql
+- args:
+    name: pushes
+    schema: public
+  type: add_existing_table_or_view

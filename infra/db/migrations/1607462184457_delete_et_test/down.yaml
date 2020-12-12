@@ -1,0 +1,19 @@
+- args:
+    delete: null
+    enable_manual: false
+    headers: []
+    insert:
+      columns: '*'
+    name: test
+    replace: false
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    table:
+      name: push_tokens
+      schema: public
+    update: null
+    webhook: http://httpbin.org/post
+    webhook_from_env: null
+  type: create_event_trigger
