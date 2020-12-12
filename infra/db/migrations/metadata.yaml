@@ -100,7 +100,7 @@ tables:
       num_retries: 0
       interval_sec: 10
       timeout_sec: 60
-    webhook: https://marie.anais.dev/invoke-push
+    webhook: https://marie.anais.dev/api/invoke-push
 - table:
     schema: public
     name: users
