@@ -38,6 +38,10 @@ interface PushRow {
   payload: string;
 }
 
+interface GetTokenResult {
+  users: TokenList[];
+}
+
 interface TokenList {
   email: string;
   push_tokens: { token: string }[];
@@ -78,14 +82,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const row: Payload<PushRow> = req.body;
 
   const uid = row.event.data.new.user_uid;
-  let tokenList: TokenList;
+  let tokenList: GetTokenResult;
   try {
     tokenList = await client.query(GET_TOKENS, { uid }, {});
 
     if (
       !tokenList ||
-      !tokenList.push_tokens ||
-      tokenList.push_tokens.length < 1
+      tokenList.users.length !== 1 ||
+      !tokenList.users[0].push_tokens ||
+      tokenList.users[0].push_tokens.length < 1
     ) {
       throw new Error(`No tokens! ${JSON.stringify(tokenList || 'nothing!')} `);
     }
@@ -100,7 +105,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let error: string, result: firebase.messaging.BatchResponse;
 
   try {
-    const messages = tokenList.push_tokens.map((t) => ({
+    const messages = tokenList.users[0].push_tokens.map((t) => ({
       token: t.token,
       ...JSON.parse(row.event.data.new.payload),
     }));
