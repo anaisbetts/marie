@@ -1,0 +1,5 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."pushes" ADD COLUMN "user_uid" text NOT NULL;
+  type: run_sql

@@ -1,0 +1,5 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: alter table "public"."pushes" drop constraint "pushes_user_uid_fkey";
+  type: run_sql

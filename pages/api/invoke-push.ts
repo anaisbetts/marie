@@ -34,9 +34,25 @@ firebase.initializeApp(firebaseConfig);
 interface PushRow {
   created_at: Date;
   id: string;
-  token: string;
+  user_uid: string;
   payload: string;
 }
+
+interface TokenList {
+  email: string;
+  push_tokens: { token: string }[];
+}
+
+const GET_TOKENS = gql`
+  query GetTokensForUser($uid: String!) {
+    users(where: { uid: { _eq: $uid } }) {
+      email
+      push_tokens {
+        token
+      }
+    }
+  }
+`;
 
 const UPDATE_PUSH = gql`
   mutation MyMutation(
@@ -61,11 +77,27 @@ const UPDATE_PUSH = gql`
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const row: Payload<PushRow> = req.body;
 
-  let error: string, result: string;
+  const uid = row.event.data.new.user_uid;
+  let tokenList: TokenList;
   try {
-    result = await firebase
-      .messaging()
-      .send(JSON.parse(row.event.data.new.payload));
+    tokenList = await client.query(GET_TOKENS, { uid }, {});
+  } catch (e) {
+    console.error(`Failed to fetch tokens for user ${uid}: ${e.message}`);
+
+    res.statusCode = 500;
+    res.send({});
+    return;
+  }
+
+  let error: string, result: firebase.messaging.BatchResponse;
+
+  try {
+    const messages = tokenList.push_tokens.map((t) => ({
+      token: t.token,
+      ...JSON.parse(row.event.data.new.payload),
+    }));
+
+    result = await firebase.messaging().sendAll(messages);
   } catch (e) {
     error = e.message;
     console.log(`Failed to send push! ${error}`);
@@ -77,7 +109,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       {
         id: row.event.data.new.id,
         delivered_at: new Date(),
-        delivery_result: result,
+        delivery_result: JSON.stringify(result),
         error: error,
       },
       {}
@@ -86,6 +118,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.error(`Failed to update push record! ${e.message}`);
   }
 
-  res.statusCode = 200
+  res.statusCode = 200;
   res.send({});
 };
