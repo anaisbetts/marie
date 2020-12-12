@@ -33,4 +33,4 @@ yarn-error.log*
 # vercel
 .vercel
 
-public/firebase-messaging-sw.js
+public/*.js
