@@ -16,6 +16,11 @@ class MyDocument extends Document {
             name="apple-mobile-web-app-status-bar-style"
             content="default"
           />
+          <link
+            rel="apple-touch-icon"
+            href="/icons/android-chrome-384x384.png"
+          />
+
           <meta name="apple-mobile-web-app-title" content="Marie" />
           <meta name="description" content="Keep your house clutter-free!" />
           <meta name="format-detection" content="telephone=no" />
@@ -23,11 +28,6 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#000000" />
 
           <link rel="manifest" href="/manifest.json" />
-          <link
-            rel="mask-icon"
-            href="/static/icons/safari-pinned-tab.svg"
-            color="#5bbad5"
-          />
           <link rel="shortcut icon" href="/favicon.ico" />
 
           <meta name="twitter:card" content="summary" />
