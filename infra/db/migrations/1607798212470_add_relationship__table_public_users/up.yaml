@@ -1,0 +1,12 @@
+- args:
+    name: pushes
+    table:
+      name: users
+      schema: public
+    using:
+      foreign_key_constraint_on:
+        column: user_uid
+        table:
+          name: pushes
+          schema: public
+  type: create_array_relationship

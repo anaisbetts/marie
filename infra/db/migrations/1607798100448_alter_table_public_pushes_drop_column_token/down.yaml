@@ -1,0 +1,17 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."pushes" ADD COLUMN "token" text;
+  type: run_sql
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."pushes" ALTER COLUMN "token" DROP NOT NULL;
+  type: run_sql
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."pushes" ADD CONSTRAINT pushes_token_fkey FOREIGN KEY
+      (token) REFERENCES "public"."push_tokens" (token) ON DELETE restrict ON UPDATE
+      restrict;
+  type: run_sql

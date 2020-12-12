@@ -1,0 +1,3 @@
+- args:
+    name: invoke_push
+  type: delete_event_trigger
