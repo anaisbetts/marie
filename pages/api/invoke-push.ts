@@ -81,6 +81,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let tokenList: TokenList;
   try {
     tokenList = await client.query(GET_TOKENS, { uid }, {});
+
+    if (
+      !tokenList ||
+      !tokenList.push_tokens ||
+      tokenList.push_tokens.length < 1
+    ) {
+      throw new Error(`No tokens! ${JSON.stringify(tokenList || 'nothing!')} `);
+    }
   } catch (e) {
     console.error(`Failed to fetch tokens for user ${uid}: ${e.message}`);
 
