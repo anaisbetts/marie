@@ -17,10 +17,12 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <TypographyStyle typography={typography} />
           <GoogleFont typography={typography} />
+
+          <title>Marie - keep your house clutter-free!</title>
 
           <meta name="application-name" content="Marie" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
