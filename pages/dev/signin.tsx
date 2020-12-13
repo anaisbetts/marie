@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 import gql from 'graphql-tag';
 import { Draqula, DraqulaProvider, useMutation } from 'draqula';
 
-import { useAuth, useToken } from '../components/use-firebase';
+import { useAuth, useToken } from '../../components/use-firebase';
 
 const ADD_USER = gql`
   mutation upsertUser($email: String!) {

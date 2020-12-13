@@ -514,6 +514,10 @@ export default function index() {
         <br />
         <br />
         <input type="submit" value="Submit Button" />
+
+        <a className="button" target="_blank" href="https://google.com">
+          Go to Google
+        </a>
       </form>
     </>
   );

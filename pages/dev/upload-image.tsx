@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 
 import firebase from 'firebase/app';
 
-import { AuthedUploadButton } from '../components/signed-upload-button';
-import { useAuth } from '../components/use-firebase';
-import { Providers } from '../components/providers';
-import { isServer } from '../components/util';
+import { AuthedUploadButton } from '../../components/signed-upload-button';
+import { useAuth } from '../../components/use-firebase';
+import { Providers } from '../../components/providers';
+import { isServer } from '../../components/util';
 
 const UploadImage: React.FC = () => {
   const auth = useAuth();
