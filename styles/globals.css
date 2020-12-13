@@ -34,7 +34,7 @@
   --text: hsl(var(--text-hs), var(--text-l));
   --accent: hsl(var(--accent-hs), var(--accent-l));
   --accent-text: hsl(var(--accent-text-hs), var(--accent-text-l));
-  --accent-border-focused: hsl(var(--accent-hs), calc(var(--accent-l) - 20%));
+  --accent-border-focused: hsl(var(--accent-hs), calc(var(--accent-l) - 15%));
   --accent-border-focused-shadow: hsla(
     var(--accent-hs),
     calc(var(--accent-l) - 20%),
@@ -95,7 +95,8 @@ section {
 
 button,
 input[type='file'],
-input[type='submit'] {
+input[type='submit'],
+a.button {
   background-color: var(--accent);
   border-radius: var(--strong-radius);
   border: 1px solid transparent;
@@ -107,9 +108,15 @@ input[type='submit'] {
   transition: 125ms box-shadow ease-in-out;
 }
 
+a.button {
+  /* NB: Compensate s.t. input buttons and link buttons are the same size */
+  padding: 19px;
+}
+
 button:focus,
 input[type='file']:focus,
-input[type='submit']:focus {
+input[type='submit']:focus,
+a.button:focus {
   outline: 1px solid transparent;
   border: 3px solid var(--accent-border-focused);
   box-shadow: 5px 5px 10px var(--accent-border-focused-shadow);
