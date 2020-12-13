@@ -1,9 +1,58 @@
-html,
+/* inspired by https://dribbble.com/shots/14748778-Task-Manager-Mobile/attachments/6451843?mode=media */
+
+:root {
+  --background-hs: 216, 100%;
+  --background-l: 98%;
+
+  --text-hs: 240, 6%;
+  --text-l: 17%;
+
+  --accent-hs: 250, 31%;
+  --accent-l: 47%;
+
+  --accent-text-hs: 251, 24%;
+  --accent-text-l: 93%;
+
+  --radius: 8px;
+  --strong-radius: calc(var(--radius) * 2);
+
+  --background: hsl(var(--background-hs), var(--background-l));
+  --background-border: hsl(
+    var(--background-hs),
+    calc(var(--background-l) - 3%)
+  );
+  --background-border-focused: hsl(
+    var(--background-hs),
+    calc(var(--background-l) - 15%)
+  );
+  --background-border-focused-shadow: hsla(
+    var(--background-hs),
+    calc(var(--background-l) - 15%),
+    0.5
+  );
+
+  --text: hsl(var(--text-hs), var(--text-l));
+  --accent: hsl(var(--accent-hs), var(--accent-l));
+  --accent-text: hsl(var(--accent-text-hs), var(--accent-text-l));
+  --accent-border-focused: hsl(var(--accent-hs), calc(var(--accent-l) - 20%));
+  --accent-border-focused-shadow: hsla(
+    var(--accent-hs),
+    calc(var(--accent-l) - 20%),
+    0.5
+  );
+}
+
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  padding: 32px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--accent);
 }
 
 a {
@@ -13,4 +62,60 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+input,
+textarea,
+select {
+  border-radius: var(--radius);
+  border: 1px solid var(--background-border);
+  transition: 125ms border ease-in-out, 125ms box-shadow ease-in-out;
+}
+
+input:focus,
+textarea:focus,
+select {
+  outline: 1px solid transparent;
+  border: 1px solid var(--background-border-focused);
+  box-shadow: 5px 5px 10px var(--accent-border-focused-shadow);
+}
+
+.selected-box {
+  border-radius: var(--strong-radius);
+  background-color: var(--accent);
+  color: var(--accent-text);
+}
+
+section {
+  background-color: #fff;
+  border-radius: var(--strong-radius);
+  color: var(--text);
+  padding: 8px;
+}
+
+button,
+input[type='file'],
+input[type='submit'] {
+  background-color: var(--accent);
+  border-radius: var(--strong-radius);
+  border: 1px solid transparent;
+  color: var(--accent-text);
+
+  padding: 16px;
+  margin: 3px;
+
+  transition: 125ms box-shadow ease-in-out;
+}
+
+button:focus,
+input[type='file']:focus,
+input[type='submit']:focus {
+  outline: 1px solid transparent;
+  border: 3px solid var(--accent-border-focused);
+  box-shadow: 5px 5px 10px var(--accent-border-focused-shadow);
+  margin: 0;
+}
+
+input[type='file']::-webkit-file-upload-button {
+  visibility: hidden;
 }

@@ -33,10 +33,13 @@ const UploadImage: React.FC = () => {
   return (
     <Providers>
       <h2>Hello, upload an image please!</h2>
-      <AuthedUploadButton onSubmitted={(i) => setImg(i.imageUrl)}>
-        Click here
-      </AuthedUploadButton>
-      {imageContent}
+      <section>
+        <p>Here is some example text</p>
+        <AuthedUploadButton onSubmitted={(i) => setImg(i.imageUrl)}>
+          Click here
+        </AuthedUploadButton>
+        {imageContent}
+      </section>
     </Providers>
   );
 };
