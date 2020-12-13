@@ -468,6 +468,53 @@ export default function index() {
       <p>
         Use the <code>printf()</code> function.
       </p>
+
+      <h2>Form Elements</h2>
+
+      <form>
+        <label htmlFor="textbox">Text Box</label>
+        <br />
+        <input type="text" name="textbox" />
+        <br />
+        <br />
+        <label htmlFor="password">Password Input</label>
+        <br />
+        <input type="password" name="password" />
+        <br />
+        <br />
+        <label htmlFor="textbox">Text Area</label>
+        <br />
+        <textarea name="textarea"></textarea>
+        <br />
+        <br />
+        <label htmlFor="dropdown">Dropdown</label>
+        <br />
+        <select id="dropdown">
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </select>
+        <br />
+        <br />
+        <label htmlFor="checkbox">Checkbox</label>
+        <br />
+        <input type="checkbox" name="checkbox" />
+        <br />
+        <br />
+        <label htmlFor="radio">Radio Select</label>
+        <br />
+        <input type="radio" name="radio" />
+        <input type="radio" name="radio" />
+        <input type="radio" name="radio" />
+        <br />
+        <br />
+        <label htmlFor="file">File</label>
+        <br />
+        <input type="file" name="file" />
+        <br />
+        <br />
+        <input type="submit" value="Submit Button" />
+      </form>
     </>
   );
 }
