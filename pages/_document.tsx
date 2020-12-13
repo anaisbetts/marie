@@ -1,7 +1,16 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from 'next/document';
+
+import { TypographyStyle, GoogleFont } from 'react-typography';
+import { typography } from '../components/theme';
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+  static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
     return { ...initialProps };
   }
@@ -10,6 +19,9 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <TypographyStyle typography={typography} />
+          <GoogleFont typography={typography} />
+
           <meta name="application-name" content="Marie" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
