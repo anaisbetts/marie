@@ -1,6 +1,18 @@
+import Image from 'next/image';
+
 export default function index() {
   return (
     <>
+      <div
+        style={{ display: 'flex', justifyContent: 'center', paddingBottom: 32 }}
+      >
+        <Image
+          src="/icons/icon-512x512.png"
+          layout="fixed"
+          width={128}
+          height={128}
+        />
+      </div>
       <h1 id="markdown-syntax">Markdown: Syntax</h1>
       <ul>
         <li>
