@@ -7,6 +7,7 @@ export default function index() {
         style={{ display: 'flex', justifyContent: 'center', paddingBottom: 32 }}
       >
         <Image
+          className="selected-box"
           src="/icons/icon-512x512.png"
           layout="fixed"
           width={128}

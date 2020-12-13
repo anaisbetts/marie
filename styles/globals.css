@@ -1,3 +1,5 @@
+/* inspired by https://dribbble.com/shots/14748778-Task-Manager-Mobile/attachments/6451843?mode=media */
+
 :root {
   --background-hs: 216, 100%;
   --background-l: 99%;
@@ -8,9 +10,13 @@
   --accent-hs: 250, 31%;
   --accent-l: 47%;
 
+  --accent-text-hs: 251, 24%;
+  --accent-text-l: 83%;
+
   --background: hsl(var(--background-hs), var(--background-l));
   --text: hsl(var(--text-hs), var(--text-l));
   --accent: hsl(var(--accent-hs), var(--accent-l));
+  --accent-text: hsl(var(--accent-text-hs), var(--accent-text-l));
 }
 
 body {
@@ -33,4 +39,10 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.selected-box {
+  border-radius: 10px;
+  background-color: var(--accent);
+  color: var(--accent-text);
 }
