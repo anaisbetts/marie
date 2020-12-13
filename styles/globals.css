@@ -1,9 +1,29 @@
-html,
+:root {
+  --background-hs: 216, 100%;
+  --background-l: 99%;
+
+  --text-hs: 240, 6%;
+  --text-l: 17%;
+
+  --accent-hs: 250, 31%;
+  --accent-l: 47%;
+
+  --background: hsl(var(--background-hs), var(--background-l));
+  --text: hsl(var(--text-hs), var(--text-l));
+  --accent: hsl(var(--accent-hs), var(--accent-l));
+}
+
 body {
-  padding: 16px;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  padding: 32px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--accent);
 }
 
 a {
