@@ -32,6 +32,7 @@
   );
 
   --text: hsl(var(--text-hs), var(--text-l));
+  --text-disabled: hsla(var(--text-hs), var(--text-l), 0.2);
   --accent: hsl(var(--accent-hs), var(--accent-l));
   --accent-text: hsl(var(--accent-text-hs), var(--accent-text-l));
   --accent-border-focused: hsl(var(--accent-hs), calc(var(--accent-l) - 15%));
@@ -40,6 +41,9 @@
     calc(var(--accent-l) - 20%),
     0.5
   );
+
+  --fast-anim-delay: 200ms;
+  --slow-anim-delay: 750ms;
 }
 
 body {
