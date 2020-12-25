@@ -30,6 +30,7 @@
     "react-typography": "^0.16.19",
     "rxjs": "^6.6.3",
     "styled-jsx": "^3.3.2",
+    "swr": "^0.3.11",
     "typography": "^0.16.19",
     "typography-theme-moraga": "^0.16.19"
   },
