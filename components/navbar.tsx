@@ -38,14 +38,10 @@ const BottomNavItem: React.FC<{
         a:hover {
           text-decoration: none;
         }
-
-        a.selected {
-          box-shadow: 5px 5px 10px var(--accent-border-focused-shadow);
-        }
       `}</style>
       <Link href={href} replace>
         <a className={selected ? 'selected' : null}>
-          <FontAwesomeIcon icon={icon} />
+          <FontAwesomeIcon icon={icon} size="2x" />
           <figcaption style={{ opacity: selected ? 1.0 : 0.0 }}>
             {title}
           </figcaption>
