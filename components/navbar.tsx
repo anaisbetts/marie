@@ -78,7 +78,7 @@ export const BottomNav: React.FC<{
           justify-content: space-evenly;
           align-items: center;
 
-          background-color: #fff;
+          background-color: var(--chrome);
           border-radius: var(--border-radius);
         }
       `}</style>

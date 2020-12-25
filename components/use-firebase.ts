@@ -3,9 +3,9 @@ import { Observable, Observer, of, from } from 'rxjs';
 import {
   distinctUntilChanged,
   mergeMap,
-  publish,
   publishBehavior,
   refCount,
+  tap,
 } from 'rxjs/operators';
 
 import firebase from 'firebase/app';
@@ -35,10 +35,21 @@ export function listenAuth() {
         firebase.auth().onAuthStateChanged(subj)
       );
 
-  return auth.pipe(distinctUntilChanged((x, y) => x?.email === y?.email));
+  return auth.pipe(
+    distinctUntilChanged((x, y) => x?.email === y?.email),
+    tap((x) => {
+      // NB: Firebase has to make an initial fetch before it can inform us
+      // whether we're actually logged in or not. This sucks. So, we'll save
+      // off in LocalStorage whether we *think* we may be logged in.
+      window.localStorage.setItem('probablyLoggedIn', x ? 'true' : 'false');
+    })
+  );
 }
 
-const authObs = listenAuth().pipe(publishBehavior(null), refCount());
+const authObs = listenAuth().pipe(
+  publishBehavior<firebase.User>(null),
+  refCount()
+);
 
 export function useAuth() {
   return useObservable(() => authObs, firebase.auth().currentUser);
