@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+
+import firebase from 'firebase/app';
 
 import { BottomNav } from './navbar';
 import { SigninButton } from './signin-button';
 import { useAuth } from './use-firebase';
 import { isServer } from './util';
-import firebase from 'firebase';
 
 export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
   title,
@@ -30,10 +30,15 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
         firebase.auth().signOut();
         setProbablySignedIn(false);
       }}
+      href="#"
       style={{ alignSelf: 'flex-end' }}
     >
       <img
-        style={{ borderRadius: '50%' }}
+        style={{
+          borderRadius: '50%',
+          padding: 2,
+          border: '3px solid var(--accent)',
+        }}
         src={user.photoURL}
         width={48}
         height={48}
