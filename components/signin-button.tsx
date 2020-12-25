@@ -3,7 +3,7 @@ import React from 'react';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 import { getDraqulaClientForToken } from './util';
 
