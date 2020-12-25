@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 import { BottomNav } from './navbar';
 import { SigninButton } from './signin-button';
 import { useAuth } from './use-firebase';
 import { isServer } from './util';
+import firebase from 'firebase';
 
 export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
   title,
@@ -22,6 +24,23 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
     }
   }, [isServer]);
 
+  const userPicture = user ? (
+    <a
+      onClick={() => {
+        firebase.auth().signOut();
+        setProbablySignedIn(false);
+      }}
+      style={{ alignSelf: 'flex-end' }}
+    >
+      <img
+        style={{ borderRadius: '50%' }}
+        src={user.photoURL}
+        width={48}
+        height={48}
+      />
+    </a>
+  ) : null;
+
   const authedContent = (
     <>
       <style jsx>{`
@@ -32,7 +51,9 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
         header {
           color: var(--accent);
           margin: 16px;
-          margin-top: 64px;
+          margin-top: 16px;
+          display: flex;
+          flex-direction: column;
         }
 
         footer {
@@ -41,6 +62,7 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
       `}</style>
 
       <header>
+        {userPicture}
         <h1>{user ? title : null}</h1>
       </header>
       <main>{user ? children : null}</main>
