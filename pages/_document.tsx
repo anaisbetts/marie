@@ -22,6 +22,10 @@ class MyDocument extends Document {
           <TypographyStyle typography={typography} />
           <GoogleFont typography={typography} />
 
+          <link rel="preconnect" href="https://www.gstatic.com" />
+          <link rel="preconnect" href="https://www.googleapis.com" />
+          <link rel="preconnect" href={process.env.NEXT_PUBLIC_DB_URL} />
+
           <title>Marie - keep your house clutter-free!</title>
 
           <meta name="application-name" content="Marie" />
