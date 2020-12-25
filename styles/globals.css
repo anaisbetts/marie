@@ -46,10 +46,14 @@
   --slow-anim-delay: 750ms;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   background-color: var(--background);
   color: var(--text);
-  padding: 32px;
 }
 
 h1,

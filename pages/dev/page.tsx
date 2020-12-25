@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { BottomNav } from '../../components/navbar';
+import { Scaffold } from '../../components/scaffold';
 
 const DemoPage: React.FC = () => {
-  return <BottomNav />;
+  return <Scaffold buttonIndex={0} title="Messes" />;
 };
 
 export default DemoPage;

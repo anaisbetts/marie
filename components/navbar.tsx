@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useState } from 'react';
 
-import { useTransition, animated } from 'react-spring';
+import Link from 'next/link';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,8 +13,8 @@ const BottomNavItem: React.FC<{
   selected: boolean;
   title: string;
   icon: IconDefinition;
-  onClick?: (title: string) => unknown;
-}> = ({ selected, title, icon, onClick }) => {
+  href: string;
+}> = ({ selected, title, icon, href }) => {
   return (
     <>
       <style jsx>{`
@@ -44,39 +43,33 @@ const BottomNavItem: React.FC<{
           box-shadow: 5px 5px 10px var(--accent-border-focused-shadow);
         }
       `}</style>
-      <a
-        className={selected ? 'selected' : null}
-        onClick={() => onClick?.(title)}
-      >
-        <FontAwesomeIcon icon={icon} />
-        <figcaption style={{ opacity: selected ? 1.0 : 0.0 }}>
-          {title}
-        </figcaption>
-      </a>
+      <Link href={href} replace>
+        <a className={selected ? 'selected' : null}>
+          <FontAwesomeIcon icon={icon} />
+          <figcaption style={{ opacity: selected ? 1.0 : 0.0 }}>
+            {title}
+          </figcaption>
+        </a>
+      </Link>
     </>
   );
 };
 
 const navButtons = [
-  { title: 'Messes', icon: faBrush },
-  { title: 'Settings', icon: faSave },
+  { title: 'Messes', icon: faBrush, href: '/' },
+  { title: 'Settings', icon: faSave, href: '/settings' },
 ];
 
 export const BottomNav: React.FC<{
-  onChange?: (n: number, t: string) => unknown;
-}> = ({ onChange }) => {
-  const [current, setCurrent] = useState(0);
-
+  selected: number;
+}> = ({ selected }) => {
   const content = navButtons.map((x, i) => (
     <BottomNavItem
       key={x.title}
       icon={x.icon}
-      selected={i === current}
+      href={x.href}
+      selected={selected === i}
       title={x.title}
-      onClick={() => {
-        setCurrent(i);
-        onChange?.(i, x.title);
-      }}
     />
   ));
 
