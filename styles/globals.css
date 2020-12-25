@@ -42,6 +42,8 @@
     0.5
   );
 
+  --chrome: #fff;
+
   --fast-anim-delay: 200ms;
   --slow-anim-delay: 750ms;
 }

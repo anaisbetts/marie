@@ -38,11 +38,12 @@ async function getWebPushToken() {
 
 const SigninTestPage: React.FC = (_props) => {
   const auth = useAuth();
-  const hasUpdated = useRef(false);
   const addUser = useMutation<{ email: string }>(ADD_USER);
   const insertToken = useMutation<{ created_at: Date; token: string }>(
     ADD_PUSH_TOKEN
   );
+
+  console.log(`AUTH IS ${auth} (${auth?.email})`);
 
   const signedIn = auth ? <h2>{'Hi ' + auth.displayName}</h2> : <p>no.</p>;
 
@@ -53,7 +54,6 @@ const SigninTestPage: React.FC = (_props) => {
         onClick={async () => {
           const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
           await firebase.auth().signInWithPopup(googleAuthProvider);
-          hasUpdated.current = false;
 
           tempToken = await firebase.auth().currentUser.getIdToken();
           addUser.mutate({ email: firebase.auth().currentUser.email });
