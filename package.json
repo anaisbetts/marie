@@ -27,7 +27,10 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-spring": "^8.0.27",
+    "react-transition-group": "^4.4.1",
     "react-typography": "^0.16.19",
+    "react-use-gesture": "^9.0.0-beta.11",
+    "react-virtuoso": "^1.2.0",
     "rxjs": "^6.6.3",
     "styled-jsx": "^3.3.2",
     "swr": "^0.3.11",
@@ -37,6 +40,7 @@
   "devDependencies": {
     "@types/node": "^14.14.10",
     "@types/react": "^17.0.0",
+    "@types/react-transition-group": "^4.4.0",
     "@types/styled-jsx": "^2.2.8",
     "@types/typography": "^0.16.3",
     "sass": "^1.29.0",
