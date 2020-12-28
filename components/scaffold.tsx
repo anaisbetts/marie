@@ -7,6 +7,8 @@ import { BottomNav } from './navbar';
 import { SigninButton } from './signin-button';
 import { useAuth } from './use-firebase';
 import { isServer } from './util';
+import { useSpring, animated } from 'react-spring';
+import { useDrag } from 'react-use-gesture';
 
 export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
   title,
@@ -15,6 +17,16 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
 }) => {
   const user = useAuth();
   const [probablySignedIn, setProbablySignedIn] = useState(true);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const props = useSpring({ width: drawerOpen ? 200 : 0 });
+  const bind = useDrag(({ swipe: [swipeX] }) => {
+    console.log(`In drag!! ${swipeX}`);
+    if (swipeX === 0) return;
+
+    const newDrawer = swipeX > 0 ? true : false;
+    if (newDrawer !== drawerOpen) setDrawerOpen(newDrawer);
+  });
 
   useEffect(() => {
     if (isServer) return;
@@ -55,8 +67,8 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
 
         header {
           color: var(--accent);
-          margin: 16px;
-          margin-top: 16px;
+          padding: 16px;
+
           display: flex;
           flex-direction: column;
         }
@@ -64,16 +76,34 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
         footer {
           color: var(--chrome);
         }
+
+        #content {
+          background-color: var(--background);
+          color: var(--text);
+
+          display: flex;
+          height: 100%;
+          flex-direction: column;
+
+          position: relative;
+        }
       `}</style>
 
-      <header>
-        {userPicture}
-        <h1>{user ? title : null}</h1>
-      </header>
-      <main>{user ? children : null}</main>
-      <footer>
-        <BottomNav selected={user ? buttonIndex : 0} />
-      </footer>
+      <div id="content" {...bind()}>
+        <animated.aside
+          className="scaffold-drawer"
+          style={props}
+        ></animated.aside>
+
+        <header>
+          {userPicture}
+          <h1>{user ? title : null}</h1>
+        </header>
+        <main>{user ? children : null}</main>
+        <footer>
+          <BottomNav selected={user ? buttonIndex : 0} />
+        </footer>
+      </div>
     </>
   );
 
@@ -114,12 +144,18 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
           height: 100%;
         }
 
-        #__next {
-          display: flex;
+        .scaffold-drawer {
+          position: absolute;
+          left: 0;
+          top: 0;
           height: 100%;
-          flex-direction: column;
-          background-color: var(--background);
-          color: var(--text);
+          width: 60px;
+          background-color: red;
+          z-index: 10;
+        }
+
+        #__next {
+          height: 100%;
         }
       `}</style>
       {user || probablySignedIn ? authedContent : signinContent}
