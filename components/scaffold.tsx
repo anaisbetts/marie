@@ -61,6 +61,10 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
           flex-direction: column;
         }
 
+        h1 {
+          margin-bottom: 0;
+        }
+
         footer {
           color: var(--chrome);
         }
