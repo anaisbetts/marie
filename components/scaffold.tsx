@@ -1,18 +1,24 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
+import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
+
 import firebase from 'firebase/app';
 
 import { BottomNav } from './navbar';
 import { SigninButton } from './signin-button';
 import { useAuth } from './use-firebase';
 import { isServer } from './util';
+import { Providers } from './providers';
 
-export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
-  title,
-  buttonIndex,
-  children,
-}) => {
+export const Scaffold: React.FC<{
+  title: string;
+  buttonIndex: number;
+  showBack?: boolean;
+  showNav?: boolean;
+}> = ({ title, buttonIndex, children, showBack = false, showNav = true }) => {
   const user = useAuth();
   const [probablySignedIn, setProbablySignedIn] = useState(true);
 
@@ -46,8 +52,16 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
     </a>
   ) : null;
 
+  const router = useRouter();
+  const backButton = showBack ? (
+    <a onClick={() => router.back()}>
+      <FontAwesomeIcon icon={faLongArrowAltLeft} />
+      &nbsp; &nbsp;
+    </a>
+  ) : null;
+
   const authedContent = (
-    <>
+    <Providers>
       <style jsx>{`
         main {
           flex: 1 1 auto;
@@ -63,6 +77,9 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
 
         h1 {
           margin-bottom: 0;
+
+          display: inline-flex;
+          align-items: center;
         }
 
         footer {
@@ -72,13 +89,16 @@ export const Scaffold: React.FC<{ title: string; buttonIndex: number }> = ({
 
       <header>
         {userPicture}
-        <h1>{user ? title : null}</h1>
+        <h1>
+          {backButton}
+          {user ? title : null}
+        </h1>
       </header>
       <main>{user ? children : null}</main>
       <footer>
-        <BottomNav selected={user ? buttonIndex : 0} />
+        {showNav ? <BottomNav selected={user ? buttonIndex : 0} /> : null}
       </footer>
-    </>
+    </Providers>
   );
 
   const signinContent = (
