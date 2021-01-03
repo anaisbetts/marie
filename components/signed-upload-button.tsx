@@ -5,6 +5,7 @@ import {
   useItemFinishListener,
   useRequestPreSend,
 } from '@rpldy/uploady';
+
 import UploadButton, { UploadButtonProps } from '@rpldy/upload-button';
 
 import axios from 'axios';
@@ -32,28 +33,39 @@ export interface UploadedImage {
 export interface AuthedUploadButtonProps extends UploadButtonProps {
   onSubmitted?: (image: UploadedImage) => unknown;
   onError?: (errorResponse: any) => unknown;
+  children: JSX.Element;
 }
 
 export const AuthedUploadButton: React.FC<AuthedUploadButtonProps> = ({
   onSubmitted,
+  onError,
+  children,
   ...others
 }) => {
   const auth = useAuth();
   const { mutate } = useMutation<{ image_url: string; asset_id: string }>(
     UPLOAD_IMAGE
   );
-  if (!auth) return <h2>NOT A BUTTON</h2>;
+  if (!auth) return null;
 
   const submit = async (x: SignedUploadedImage) => {
-    await mutate({
-      image_url: x.url,
-      asset_id: x.asset_id,
-    });
+    try {
+      await mutate({
+        image_url: x.url,
+        asset_id: x.asset_id,
+      });
 
-    onSubmitted?.({ id: x.asset_id, imageUrl: x.url });
+      onSubmitted?.({ id: x.asset_id, imageUrl: x.url });
+    } catch (e) {
+      onError?.(e);
+    }
   };
 
-  return <SignedUploadButton onSubmitted={submit} {...others} />;
+  return (
+    <SignedUploadButton onSubmitted={submit} onError={onError} {...others}>
+      {children}
+    </SignedUploadButton>
+  );
 };
 
 export interface SignedUploadedImage {
@@ -71,6 +83,7 @@ export interface SignedUploadButtonProps extends UploadButtonProps {
 export const SignedUploadButton: React.FC<SignedUploadButtonProps> = ({
   onSubmitted,
   onError,
+  children,
   ...others
 }) => {
   urps(async ({ options }) => {
@@ -104,5 +117,5 @@ export const SignedUploadButton: React.FC<SignedUploadButtonProps> = ({
     })
   );
 
-  return <UploadButton {...others}>Upload Image</UploadButton>;
+  return <UploadButton {...others}>{children}</UploadButton>;
 };
