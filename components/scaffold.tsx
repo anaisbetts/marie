@@ -11,7 +11,6 @@ import { BottomNav } from './navbar';
 import { SigninButton } from './signin-button';
 import { useAuth } from './use-firebase';
 import { isServer } from './util';
-import { Providers } from './providers';
 
 export const Scaffold: React.FC<{
   title: string;
@@ -61,7 +60,7 @@ export const Scaffold: React.FC<{
   ) : null;
 
   const authedContent = (
-    <Providers>
+    <>
       <style jsx>{`
         main {
           flex: 1 1 auto;
@@ -104,7 +103,7 @@ export const Scaffold: React.FC<{
       <footer>
         {showNav ? <BottomNav selected={user ? buttonIndex : 0} /> : null}
       </footer>
-    </Providers>
+    </>
   );
 
   const signinContent = (

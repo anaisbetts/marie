@@ -7,9 +7,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Scaffold } from '../components/scaffold';
 import { AuthedUploadButton } from '../components/signed-upload-button';
+import { useListUsers } from '../components/api/swr';
 
-const SettingsPage: React.FC = () => {
+const NewMessPage: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string>(null);
+  const userList = useListUsers();
+
+  const users = userList.data
+    ? userList.data.map((x) => (
+        <option key={x.uid} value={x.uid}>
+          {x.display_name ?? 'Mystery user!'}
+        </option>
+      ))
+    : [<option key="loading">Loading...</option>];
 
   const imageContent = imageUrl ? (
     <img src={imageUrl} style={{ maxHeight: 300 }} />
@@ -78,12 +88,7 @@ const SettingsPage: React.FC = () => {
         </AuthedUploadButton>
 
         <h4>Who would know best where these things go?</h4>
-        <select>
-          <option>Ulrike</option>
-          <option>Effie</option>
-          <option>Ani</option>
-          <option>I don't know!</option>
-        </select>
+        <select>{users}</select>
 
         <h3>Anything else they should know?</h3>
         <textarea />
@@ -94,4 +99,4 @@ const SettingsPage: React.FC = () => {
   );
 };
 
-export default SettingsPage;
+export default NewMessPage;
