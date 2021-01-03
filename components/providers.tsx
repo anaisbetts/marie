@@ -2,7 +2,7 @@ import { Draqula, DraqulaProvider } from 'draqula';
 import { useToken } from './use-firebase';
 
 import Uploady from '@rpldy/uploady';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 export const Providers: React.FC = ({ children }) => {
   const token = useToken();
@@ -14,13 +14,17 @@ export const Providers: React.FC = ({ children }) => {
     },
   };
 
-  const client = new Draqula(process.env.NEXT_PUBLIC_DB_URL, {
-    hooks: {
-      beforeRequest: [
-        (rq) => rq.headers.set('Authorization', `Bearer ${token}`),
-      ],
-    },
-  });
+  const client = useMemo(
+    () =>
+      new Draqula(process.env.NEXT_PUBLIC_DB_URL, {
+        hooks: {
+          beforeRequest: [
+            (rq) => rq.headers.set('Authorization', `Bearer ${token}`),
+          ],
+        },
+      }),
+    [token]
+  );
 
   return (
     <Uploady destination={destination}>

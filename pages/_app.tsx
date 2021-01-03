@@ -4,6 +4,8 @@ import Head from 'next/head';
 import '../styles/globals.css';
 import '../components/setup-firebase';
 
+import { Providers } from '../components/providers';
+
 function MyApp({ Component, pageProps }) {
   return (
     <>
@@ -13,7 +15,9 @@ function MyApp({ Component, pageProps }) {
           content="width=device-width, initial-scale=1"
         ></meta>
       </Head>
-      <Component {...pageProps} />
+      <Providers>
+        <Component {...pageProps} />
+      </Providers>
     </>
   );
 }

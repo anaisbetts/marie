@@ -36,7 +36,7 @@ const UploadImage: React.FC = () => {
       <section>
         <p>Here is some example text</p>
         <AuthedUploadButton onSubmitted={(i) => setImg(i.imageUrl)}>
-          Click here
+          <>Click here</>
         </AuthedUploadButton>
         {imageContent}
       </section>

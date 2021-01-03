@@ -55,8 +55,16 @@ export function useAuth() {
   return useObservable(() => authObs, firebase.auth().currentUser);
 }
 
+const tokenObs = authObs.pipe(
+  mergeMap((u) => (u ? from(u.getIdToken()) : of(''))),
+  publishBehavior<string>(null),
+  refCount()
+);
+
+if (!isServer) {
+  tokenObs.subscribe();
+}
+
 export function useToken() {
-  return useObservable(() =>
-    authObs.pipe(mergeMap((u) => (u ? from(u.getIdToken()) : of(''))))
-  );
+  return useObservable(() => tokenObs);
 }

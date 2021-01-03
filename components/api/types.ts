@@ -21,3 +21,8 @@ export interface Payload<T = any> {
     name: string;
   };
 }
+
+export interface ProfileInfo {
+  uid: string;
+  display_name: string;
+}
