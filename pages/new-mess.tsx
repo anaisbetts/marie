@@ -8,18 +8,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Scaffold } from '../components/scaffold';
 import { AuthedUploadButton } from '../components/signed-upload-button';
 import { useListUsers } from '../components/api/swr';
+import { useAuth } from '../components/use-firebase';
 
 const NewMessPage: React.FC = () => {
-  const [imageUrl, setImageUrl] = useState<string>(null);
+  const user = useAuth();
   const userList = useListUsers();
+  const [imageUrl, setImageUrl] = useState<string>(null);
 
-  const users = userList.data
-    ? userList.data.map((x) => (
-        <option key={x.uid} value={x.uid}>
-          {x.display_name ?? 'Mystery user!'}
-        </option>
-      ))
+  let users = userList.data
+    ? userList.data
+        .filter((x) => x.uid !== user.uid)
+        .map((x) => (
+          <option key={x.uid} value={x.uid}>
+            {x.display_name ?? 'Mystery user!'}
+          </option>
+        ))
     : [<option key="loading">Loading...</option>];
+
+  users = users.concat(
+    <option key="dunnolol" value="">
+      I don't know!
+    </option>
+  );
 
   const imageContent = imageUrl ? (
     <img src={imageUrl} style={{ maxHeight: 300 }} />
