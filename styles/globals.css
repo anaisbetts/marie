@@ -61,8 +61,15 @@ body {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+h6 {
   color: var(--accent);
+  margin-bottom: 0;
+}
+
+img {
+  margin-bottom: 0;
 }
 
 a {
@@ -138,4 +145,8 @@ a.button:focus {
 
 input[type='file']::-webkit-file-upload-button {
   visibility: hidden;
+}
+
+.expando-flex {
+  flex: 1 1 auto;
 }

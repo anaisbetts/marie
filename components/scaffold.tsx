@@ -71,8 +71,11 @@ export const Scaffold: React.FC<{
           color: var(--accent);
           margin: 16px;
           margin-top: 16px;
+
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
         }
 
         h1 {
@@ -88,11 +91,14 @@ export const Scaffold: React.FC<{
       `}</style>
 
       <header>
-        {userPicture}
         <h1>
           {backButton}
           {user ? title : null}
         </h1>
+
+        <div className="expando-flex" />
+
+        {userPicture}
       </header>
       <main>{user ? children : null}</main>
       <footer>
@@ -108,10 +114,6 @@ export const Scaffold: React.FC<{
           align-self: center;
         }
 
-        .expando {
-          flex: 1 1 auto;
-        }
-
         h1 {
           margin-top: 64px;
         }
@@ -120,13 +122,13 @@ export const Scaffold: React.FC<{
           align-self: center;
         }
       `}</style>
-      <div className="expando">
+      <div className="expando-flex">
         <h1>Welcome to Marie</h1>
       </div>
       <div>
         <SigninButton />
       </div>
-      <div className="expando" />
+      <div className="expando-flex" />
     </>
   );
 
