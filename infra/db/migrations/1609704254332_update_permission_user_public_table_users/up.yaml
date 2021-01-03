@@ -1,0 +1,20 @@
+- args:
+    role: user
+    table:
+      name: users
+      schema: public
+  type: drop_insert_permission
+- args:
+    permission:
+      backend_only: false
+      check: {}
+      columns:
+      - display_name
+      - email
+      set:
+        uid: x-hasura-User-Id
+    role: user
+    table:
+      name: users
+      schema: public
+  type: create_insert_permission

@@ -133,6 +133,7 @@ tables:
       set:
         uid: x-hasura-User-Id
       columns:
+      - display_name
       - email
       backend_only: false
   select_permissions:
@@ -140,6 +141,7 @@ tables:
     permission:
       columns:
       - created_at
+      - display_name
       - email
       - updated_at
       filter:
@@ -149,6 +151,7 @@ tables:
   - role: user
     permission:
       columns:
+      - display_name
       - email
       filter:
         uid:

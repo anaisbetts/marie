@@ -8,9 +8,9 @@ import firebase from 'firebase/app';
 import { getDraqulaClientForToken } from './util';
 
 const ADD_USER = gql`
-  mutation upsertUser($email: String!) {
+  mutation upsertUser($email: String!, $displayName: String!) {
     insert_users(
-      objects: { email: $email }
+      objects: { email: $email, display_name: $displayName }
       on_conflict: { update_columns: email, constraint: users_email_key }
     ) {
       returning {
@@ -47,7 +47,10 @@ export const SigninButton: React.FC = () => {
     try {
       await client.mutate(
         ADD_USER,
-        { email: firebase.auth().currentUser.email },
+        {
+          email: firebase.auth().currentUser.email,
+          displayName: firebase.auth().currentUser.displayName,
+        },
         {}
       );
     } catch (e) {
