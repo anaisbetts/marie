@@ -18,11 +18,6 @@ const MessesPage: React.FC = () => {
 
         section {
           flex: 1 1 auto;
-
-          margin-left: 16px;
-          margin-right: 16px;
-
-          border-radius: var(--radius);
         }
 
         a.button {

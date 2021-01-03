@@ -101,6 +101,9 @@ section {
   border-radius: var(--strong-radius);
   color: var(--text);
   padding: 8px;
+
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 button,
