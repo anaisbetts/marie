@@ -37,6 +37,16 @@ tables:
           _eq: X-Hasura-User-Id
 - table:
     schema: public
+    name: profiles
+  select_permissions:
+  - role: user
+    permission:
+      columns:
+      - display_name
+      - uid
+      filter: {}
+- table:
+    schema: public
     name: push_tokens
   object_relationships:
   - name: user
@@ -140,10 +150,11 @@ tables:
   - role: user
     permission:
       columns:
+      - email
+      - uid
+      - updated_at
       - created_at
       - display_name
-      - email
-      - updated_at
       filter:
         uid:
           _eq: X-Hasura-User-Id

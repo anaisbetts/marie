@@ -1,0 +1,9 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE VIEW profiles AS SELECT display_name, uid FROM users;
+  type: run_sql
+- args:
+    name: profiles
+    schema: public
+  type: add_existing_table_or_view
