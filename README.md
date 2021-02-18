@@ -31,3 +31,44 @@
 ### Research
 
 - [Marie Kondo Themes](https://www.sloww.co/marie-kondo-magic-tidying-book-summary/)
+
+### Quotes from the Manga
+
+- "I want you to think about this question - what kind of life would you like to live here?"
+
+- "...and why?"
+
+- "What does happiness look like for you?"
+
+- "Storage is not the answer to clutter!"
+
+- "Functional" / "Emotional" / "Informational" value +- "Rarity"
+
+- "Are you happy wearing clothes that don't spark Joy? Do you feel Joy when you're surrounded by books you've never read? Can you experience happiness by hanging onto accessories that you know you won't wear?"
+
+- "Don't clean by place, clean by category! Don't clean one room at a time"
+
+- Have three boxes for papers; "Needs action", "Contracts" and "I need to keep"
+
+- Belongings are for **you**, not for other people! They are things that make _you happy_
+
+- "Store your memories so that you can look at them any time"
+
+- Holding onto things that represent painful memories means that you hold onto that pain too
+
+- "What really matters is not the past, but the person we have now become thanks to these past experiences. We should use that space not for the person we once were, but for our future selves."
+
+- "Keeping storage as simple as possible is the secret to maintaining a tidy space. Store things so that you know what you own"
+
+- "Store everything in the same category in the same place!"
+
+- "Things end up spread around because it's too much trouble to put them away, or because they have no fixed place"
+
+- Store everything upright, so that you can see what you own (except towels or other items that are identical)"
+
+- "Focus on the things you want to _keep_, not looking for more and more things to discard"
+
+- "People are unable to discard their things because they are attached to the past, or afraid of the future"
+
+- "Being unable to discard means that we can't see what we need, what will satisfy us, or what we're really seeking"
+
